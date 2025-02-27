@@ -29,6 +29,7 @@ const toggleDarkMode = () => {
 <style lang="scss">
 :root {
   --primary-color: #0096FF;
+  --primary-color-rgb: 0, 150, 255;
   --secondary-color: #333333;
   --background-color: #FFFFFF;
   --text-color: #000000;
@@ -42,6 +43,7 @@ body {
 body.dark-mode,
 .dark-mode {
   --primary-color: #66B2FF;
+  --primary-color-rgb: 102, 178, 255;
   --secondary-color: #CCCCCC;
   --background-color: #1A1A1A;
   --text-color: #FFFFFF;

@@ -10,18 +10,18 @@
             <span class="cursor" :class="{ 'typing': isTyping }">|</span>
           </div>
           <div class="contact-info">
-            <a href="mailto:flipture@gmail.com">
+            <a href="mailto:flipture@gmail.com" target="_blank" rel="noopener noreferrer">
               <font-awesome-icon :icon="['fas', 'envelope']" /> flipture@gmail.com
             </a>
-            <a href="tel:678-361-6518">
-              <font-awesome-icon :icon="['fas', 'phone']" /> 678 361-6518
+            <a href="tel:+16783616518" target="_blank" rel="noopener noreferrer">
+              <font-awesome-icon :icon="['fas', 'phone']" /> 678-361-6518
             </a>
-            <a href="https://www.linkedin.com/in/philiphutchins" target="_blank">
+            <a href="https://www.linkedin.com/in/philiphutchins" target="_blank" rel="noopener noreferrer">
               <font-awesome-icon :icon="['fab', 'linkedin']" /> LinkedIn
             </a>
-            <span>
+            <a href="https://www.google.com/maps/place/Atlanta,+GA" target="_blank" rel="noopener noreferrer">
               <font-awesome-icon :icon="['fas', 'location-dot']" /> Atlanta
-            </span>
+            </a>
           </div>
         </div>
         <div class="header-right">
@@ -218,15 +218,39 @@ section {
   margin-top: 1rem;
   font-size: 0.9rem;
 
-  a, span {
+  a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     color: var(--text-color);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 0.2rem 0.4rem;
+    border-radius: 2px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--primary-color);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
 
     &:hover {
+      color: var(--primary-color);
+      background-color: rgba(var(--primary-color-rgb), 0.05);
+
+      &::after {
+        transform: scaleX(1);
+      }
+    }
+
+    svg {
       color: var(--primary-color);
     }
   }

@@ -139,28 +139,47 @@ const chartOptions = {
 
 .skills-categories {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   margin-bottom: 2rem;
-  flex-wrap: wrap;
+  border-bottom: 1px solid var(--secondary-color);
 }
 
 .category-button {
-  padding: 0.5rem 1rem;
+  flex: 1;
+  padding: 0.75rem 0;
   border: none;
-  border-radius: 20px;
-  background-color: rgba(var(--background-color), 0.1);
-  color: var(--text-color);
+  background: none;
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
 
   &:hover {
-    background-color: var(--primary-color);
-    color: var(--background-color);
+    color: var(--primary-color);
   }
 
   &.active {
-    background-color: var(--primary-color);
-    color: var(--background-color);
+    color: var(--primary-color);
+
+    &::after {
+      transform: scaleX(1);
+    }
   }
 }
 
