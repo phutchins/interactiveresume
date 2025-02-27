@@ -144,9 +144,9 @@ html, body {
     &::before {
       right: unset;
       left: 0.4rem;
-      width: 0.3rem;
-      height: 0.3rem;
-      background-color: rgba(255, 255, 255, 0.7);
+      width: 0.45rem;
+      height: 0.45rem;
+      background-color: white;
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     }
 
@@ -154,9 +154,9 @@ html, body {
       right: unset;
       left: 0.8rem;
       top: 60%;
-      width: 0.2rem;
-      height: 0.2rem;
-      background-color: rgba(255, 255, 255, 0.7);
+      width: 0.35rem;
+      height: 0.35rem;
+      background-color: white;
       clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
     }
   }
@@ -172,33 +172,22 @@ html, body {
     border-radius: 50%;
     transition: all 0.3s ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  &.active .toggle-dot {
+    transform: translate(1.5rem, -50%);
+    background-color: white;
 
     &::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      transform: scale(0);
-      background-color: transparent;
-    }
-  }
-
-  &.active .toggle-dot {
-    transform: translate(1.75rem, -50%);
-    background-color: #f1c40f;
-
-    &::before {
-      transform: scale(1);
-      background-color: #1e293b;
-      width: 85%;
-      height: 85%;
       top: -10%;
       left: 25%;
-      box-shadow: inset -3px -2px 0px rgba(255, 255, 255, 0.2);
+      width: 85%;
+      height: 85%;
+      border-radius: 50%;
+      background-color: #1e293b;
+      transform: scale(1);
     }
   }
 }
