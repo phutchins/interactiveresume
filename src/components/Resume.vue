@@ -124,7 +124,7 @@ onMounted(() => {
 }
 
 .header {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 
   &-content {
     display: flex;
@@ -158,18 +158,33 @@ onMounted(() => {
 h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  color: var(--primary-color);
+  color: var(--text-color);
+  font-weight: bold;
 }
 
 h2 {
-  font-size: 1.5rem;
-  color: var(--secondary-color);
+  font-size: 1.2rem;
+  color: var(--primary-color);
   margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+section {
+  h2 {
+    text-align: left;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
 }
 
 .typing-effect {
   min-height: 2rem;
   margin: 1rem 0;
+  font-style: italic;
+  color: var(--secondary-color);
 
   .cursor {
     display: inline-block;
@@ -188,6 +203,7 @@ h2 {
   flex-wrap: wrap;
   gap: 1rem;
   margin-top: 1rem;
+  font-size: 0.9rem;
 
   a, span {
     display: flex;
@@ -205,7 +221,7 @@ h2 {
 
 .main-content {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
 
   .left-column {
     flex: 3;
@@ -217,14 +233,14 @@ h2 {
 }
 
 section {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: rgba(var(--background-color), 0.05);
-  border-radius: 8px;
-  transition: transform 0.3s ease;
+  margin-bottom: 2.5rem;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  transition: none;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: none;
   }
 }
 
@@ -250,6 +266,10 @@ section {
 
   .contact-info {
     justify-content: center;
+  }
+
+  section h2 {
+    text-align: center;
   }
 }
 </style>
