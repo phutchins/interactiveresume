@@ -1,251 +1,193 @@
 <template>
   <div class="skills-section">
-    <div class="skills-categories">
-      <button
-        v-for="category in categories"
-        :key="category"
-        :class="{ active: selectedCategory === category }"
-        @click="selectCategory(category)"
-        class="category-button"
-      >
-        {{ category }}
-      </button>
-    </div>
-
-    <div class="skills-display">
-      <div class="skills-chart">
-        <Radar
-          v-if="chartData"
-          :data="chartData"
-          :options="chartOptions"
-        />
-      </div>
-
-      <div class="skills-list">
-        <div
-          v-for="skill in filteredSkills"
-          :key="skill.name"
-          class="skill-item"
-          @mouseenter="highlightSkill(skill.name)"
-          @mouseleave="clearHighlight"
-        >
-          <div class="skill-info">
-            <span class="skill-name">{{ skill.name }}</span>
-            <div class="skill-bar">
-              <div
-                class="skill-progress"
-                :style="{ width: `${skill.level}%` }"
-              ></div>
-            </div>
-          </div>
+    <div class="skills-grid">
+      <div v-for="category in categories" :key="category" class="skill-category">
+        <div class="category-header" @click="toggleCategory(category)">
+          <h3>{{ category }}</h3>
+          <font-awesome-icon
+            :icon="['fas', expandedCategories[category] ? 'chevron-down' : 'chevron-right']"
+            class="toggle-icon"
+          />
         </div>
+        <div v-if="!expandedCategories[category]" class="skills-preview">
+          {{ getPreviewText(category) }}
+        </div>
+        <ul v-else class="skills-list">
+          <li v-for="skill in getSkillsByCategory(category)"
+              :key="skill.name"
+              class="skill-item">
+            {{ skill.name }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Radar } from 'vue-chartjs'
-import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js'
+import { computed, ref } from 'vue'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faChevronRight, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 
-ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend)
+library.add(faChevronRight, faChevronDown)
 
 interface Skill {
   name: string
   category: string
-  level: number
 }
 
 const skills: Skill[] = [
-  // Infrastructure & Cloud
-  { name: 'GCP/AWS', category: 'Infrastructure', level: 95 },
-  { name: 'Kubernetes', category: 'Infrastructure', level: 90 },
-  { name: 'Docker', category: 'Infrastructure', level: 95 },
-  { name: 'CI/CD', category: 'Infrastructure', level: 90 },
+  // Leadership & Management
+  { name: 'Engineering Leadership', category: 'Leadership' },
+  { name: 'Team Building', category: 'Leadership' },
+  { name: 'Strategic Planning', category: 'Leadership' },
+  { name: 'Mentoring', category: 'Leadership' },
+  { name: 'Project Management', category: 'Leadership' },
+  { name: 'Process Improvement', category: 'Leadership' },
 
-  // Development
-  { name: 'JavaScript', category: 'Development', level: 90 },
-  { name: 'Web3', category: 'Development', level: 85 },
-  { name: 'Linux', category: 'Development', level: 90 },
-  { name: 'TensorFlow', category: 'Development', level: 75 },
+  // Technical Skills
+  { name: 'System Architecture', category: 'Technical' },
+  { name: 'Cloud Computing', category: 'Technical' },
+  { name: 'DevOps', category: 'Technical' },
+  { name: 'Security', category: 'Technical' },
+  { name: 'API Design', category: 'Technical' },
+  { name: 'Microservices', category: 'Technical' },
 
-  // Security
-  { name: 'Information Security', category: 'Security', level: 85 },
-  { name: 'Data Security', category: 'Security', level: 90 },
+  // Programming
+  { name: 'Python', category: 'Programming' },
+  { name: 'JavaScript/TypeScript', category: 'Programming' },
+  { name: 'Go', category: 'Programming' },
+  { name: 'Ruby', category: 'Programming' },
+  { name: 'Java', category: 'Programming' },
+  { name: 'SQL', category: 'Programming' },
 
-  // Leadership
-  { name: 'Product Management', category: 'Leadership', level: 90 },
-  { name: 'Team Leadership', category: 'Leadership', level: 95 },
-  { name: 'Developer Experience', category: 'Leadership', level: 85 }
+  // Infrastructure
+  { name: 'AWS', category: 'Infrastructure' },
+  { name: 'Kubernetes', category: 'Infrastructure' },
+  { name: 'Docker', category: 'Infrastructure' },
+  { name: 'Terraform', category: 'Infrastructure' },
+  { name: 'CI/CD', category: 'Infrastructure' },
+  { name: 'Monitoring', category: 'Infrastructure' },
+
+  // Business
+  { name: 'Product Strategy', category: 'Business' },
+  { name: 'Stakeholder Management', category: 'Business' },
+  { name: 'Budget Management', category: 'Business' },
+  { name: 'Cross-functional Collaboration', category: 'Business' },
+  { name: 'Technical Writing', category: 'Business' },
+  { name: 'Presentations', category: 'Business' }
 ]
 
-const categories = [...new Set(skills.map(skill => skill.category))]
-const selectedCategory = ref(categories[0])
-const highlightedSkill = ref<string | null>(null)
+const categories = computed(() => [...new Set(skills.map(skill => skill.category))])
+const expandedCategories = ref(Object.fromEntries(categories.value.map(category => [category, false])))
 
-const selectCategory = (category: string) => {
-  selectedCategory.value = category
+const getSkillsByCategory = (category: string) => {
+  return skills.filter(skill => skill.category === category)
 }
 
-const highlightSkill = (skillName: string) => {
-  highlightedSkill.value = skillName
+const toggleCategory = (category: string) => {
+  expandedCategories.value[category] = !expandedCategories.value[category]
 }
 
-const clearHighlight = () => {
-  highlightedSkill.value = null
-}
-
-const filteredSkills = computed(() => {
-  return skills.filter(skill => skill.category === selectedCategory.value)
-})
-
-const chartData = computed(() => ({
-  labels: filteredSkills.value.map(skill => skill.name),
-  datasets: [
-    {
-      label: selectedCategory.value,
-      data: filteredSkills.value.map(skill => skill.level),
-      backgroundColor: 'rgba(0, 150, 255, 0.2)',
-      borderColor: 'rgba(0, 150, 255, 1)',
-      borderWidth: 2,
-      pointBackgroundColor: 'rgba(0, 150, 255, 1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(0, 150, 255, 1)'
-    }
-  ]
-}))
-
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    r: {
-      angleLines: {
-        display: true
-      },
-      suggestedMin: 0,
-      suggestedMax: 100
-    }
-  }
+const getPreviewText = (category: string) => {
+  const categorySkills = getSkillsByCategory(category)
+  return categorySkills.map(skill => skill.name).join(', ')
 }
 </script>
 
 <style lang="scss" scoped>
 .skills-section {
-  padding: 1rem;
+  padding: 0;
 }
 
-.skills-categories {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--secondary-color);
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
-.category-button {
-  flex: 1;
-  padding: 0.75rem 0;
-  border: none;
-  background: none;
-  color: var(--secondary-color);
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.skill-category {
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--primary-color);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
+    &:hover {
+      h3 {
+        color: var(--primary-color);
+      }
+      .toggle-icon {
+        color: var(--primary-color);
+      }
+    }
 
-  &:hover {
-    color: var(--primary-color);
-  }
-
-  &.active {
-    color: var(--primary-color);
-
-    &::after {
-      transform: scaleX(1);
+    h3 {
+      color: var(--text-color);
+      font-size: 1.1rem;
+      margin: 0;
+      transition: color 0.2s ease;
     }
   }
 }
 
-.skills-display {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+.toggle-icon {
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  width: 16px;
 }
 
-.skills-chart {
-  height: 300px;
+.skills-preview {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.25rem 0;
 }
 
 .skills-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  column-gap: 2rem;
 }
 
 .skill-item {
-  padding: 0.75rem 0;
-  border-bottom: 1px dashed #ddd;
-  transition: all 0.3s ease;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &:hover {
-    background: none;
-  }
-}
-
-.skill-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.skill-name {
-  font-weight: 500;
+  padding: 0.25rem 0;
   color: var(--text-color);
   text-align: left;
-}
+  position: relative;
+  padding-left: 1.5rem;
+  break-inside: avoid;
+  line-height: 1.4;
 
-.skill-bar {
-  height: 6px;
-  background-color: rgba(var(--background-color), 0.1);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.skill-progress {
-  height: 100%;
-  background-color: var(--primary-color);
-  border-radius: 3px;
-  transition: width 0.3s ease;
+  &::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+  }
 }
 
 @media (max-width: 768px) {
-  .skills-display {
+  .skills-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .skills-chart {
-    height: 250px;
+  .skills-list {
+    columns: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-list {
+    columns: 1;
   }
 }
 </style>

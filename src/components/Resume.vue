@@ -26,7 +26,7 @@
         </div>
         <div class="header-right">
           <div class="profile-image">
-            <img src="../assets/placeholder-profile.png" alt="Philip Hutchins" />
+            <img src="../assets/profile-photo.jpeg" alt="Philip Hutchins" />
           </div>
         </div>
       </div>
