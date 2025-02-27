@@ -188,20 +188,23 @@ const toggleExpanded = (index: number) => {
 .job-technologies {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.75rem;
   margin-top: 1rem;
 }
 
 .technology-tag {
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  padding: 0.25rem 0.75rem;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  transition: transform 0.2s ease;
+  font-size: 0.85rem;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  padding: 0.2rem 0.5rem;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
 
   &:hover {
-    transform: scale(1.05);
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    transform: translateY(-1px);
   }
 }
 
