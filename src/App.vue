@@ -18,12 +18,11 @@ const toggleDarkMode = () => {
 <template>
   <div :class="{ 'dark-mode': isDarkMode }" class="app">
     <div class="resume-container">
-      <div class="theme-toggle-container">
-        <span class="theme-label" :class="{ 'active': !isDarkMode }">Light</span>
+      <div class="header-container">
+        <h1>PHILIP HUTCHINS</h1>
         <div class="theme-toggle" @click="toggleDarkMode" :class="{ 'active': isDarkMode }">
           <div class="toggle-dot"></div>
         </div>
-        <span class="theme-label" :class="{ 'active': isDarkMode }">Dark</span>
       </div>
       <Resume />
     </div>
@@ -80,25 +79,14 @@ html, body {
   padding: 2rem;
 }
 
-.theme-toggle-container {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+.header-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
-  z-index: 10;
-}
+  margin-bottom: 2rem;
 
-.theme-label {
-  font-size: 1rem;
-  color: var(--text-color);
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-  user-select: none;
-
-  &.active {
-    opacity: 1;
+  h1 {
+    margin: 0;
   }
 }
 
@@ -166,8 +154,8 @@ html, body {
     left: 0.25rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
     background-color: white;
     border-radius: 50%;
     transition: all 0.3s ease;
@@ -175,7 +163,7 @@ html, body {
   }
 
   &.active .toggle-dot {
-    transform: translate(1.5rem, -50%);
+    transform: translate(1.75rem, -50%);
     background-color: white;
 
     &::before {
