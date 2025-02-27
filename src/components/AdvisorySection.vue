@@ -38,24 +38,28 @@ const advisoryRoles: Advisory[] = [
 .advisory-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0;
 }
 
 .advisory-card {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
-  background-color: rgba(var(--background-color), 0.1);
-  border-radius: 8px;
+  padding: 1rem 0;
+  background: none;
+  border-bottom: 1px dashed #ddd;
   transition: all 0.3s ease;
   animation: slideIn 0.5s ease forwards;
   animation-delay: var(--delay);
   opacity: 0;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   &:hover {
-    transform: translateX(10px);
-    background-color: rgba(var(--primary-color), 0.1);
+    transform: none;
+    background: none;
 
     .advisory-icon {
       transform: scale(1.1);

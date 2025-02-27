@@ -181,12 +181,16 @@ const chartOptions = {
 }
 
 .skill-item {
-  padding: 0.5rem;
-  border-radius: 8px;
+  padding: 0.75rem 0;
+  border-bottom: 1px dashed #ddd;
   transition: all 0.3s ease;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   &:hover {
-    background-color: rgba(var(--background-color), 0.1);
+    background: none;
   }
 }
 

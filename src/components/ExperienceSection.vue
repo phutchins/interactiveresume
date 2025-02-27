@@ -85,7 +85,7 @@ const jobs: Experience[] = [
   }
 ]
 
-const expandedJobs = ref(new Array(jobs.length).fill(false))
+const expandedJobs = ref(new Array(jobs.length).fill(true))
 
 const toggleExpanded = (index: number) => {
   expandedJobs.value[index] = !expandedJobs.value[index]
@@ -96,19 +96,27 @@ const toggleExpanded = (index: number) => {
 .experience-section {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0;
+
+  .job-card {
+    padding: 1.5rem 0;
+    border-bottom: 1px dashed #ddd;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 }
 
 .job-card {
-  background-color: rgba(var(--background-color), 0.1);
-  border-radius: 8px;
-  padding: 1rem;
+  background: none;
+  border-radius: 0;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: none;
+    box-shadow: none;
   }
 }
 
@@ -146,7 +154,7 @@ const toggleExpanded = (index: number) => {
   transition: max-height 0.3s ease;
 
   &.expanded {
-    max-height: 500px;
+    max-height: 1000px;
   }
 }
 

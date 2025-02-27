@@ -40,6 +40,13 @@ const toggleDarkMode = () => {
   --text-color: #FFFFFF;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
 .app {
   min-height: 100vh;
   width: 100%;
@@ -49,13 +56,15 @@ const toggleDarkMode = () => {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
 }
 
 .resume-container {
   position: relative;
   max-width: 1200px;
   width: 100%;
+  padding: 2rem;
 }
 
 .theme-toggle {
@@ -84,7 +93,6 @@ const toggleDarkMode = () => {
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
-  margin: 0;
-  padding: 0;
+  overflow-x: hidden;
 }
 </style>

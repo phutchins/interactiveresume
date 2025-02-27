@@ -134,6 +134,11 @@ onMounted(() => {
 
   &-left {
     flex: 1;
+    text-align: left;
+
+    h1, h2 {
+      text-align: left;
+    }
   }
 
   &-right {
@@ -173,7 +178,8 @@ h2 {
 section {
   h2 {
     text-align: left;
-    border-bottom: 2px solid var(--primary-color);
+    color: var(--text-color);
+    border-bottom: 3px solid var(--text-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
     font-weight: bold;
@@ -257,7 +263,14 @@ section {
   .header-content {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+
+    .header-left {
+      text-align: center;
+
+      h1, h2 {
+        text-align: center;
+      }
+    }
 
     .header-right {
       margin: 2rem 0;

@@ -36,24 +36,28 @@ const getIconForStrength = (title: string) => {
 
 <style lang="scss" scoped>
 .strengths-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .strength-card {
-  background-color: rgba(var(--background-color), 0.1);
-  border-radius: 12px;
-  padding: 1.5rem;
-  text-align: center;
+  background: none;
+  border-bottom: 1px dashed #ddd;
+  padding: 1.5rem 0;
+  text-align: left;
   transition: all 0.3s ease;
   animation: fadeIn 0.5s ease forwards;
   animation-delay: var(--delay);
   opacity: 0;
 
+  &:last-child {
+    border-bottom: none;
+  }
+
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: none;
+    box-shadow: none;
 
     .strength-icon {
       transform: scale(1.1);
@@ -62,22 +66,24 @@ const getIconForStrength = (title: string) => {
 }
 
 .strength-icon {
-  font-size: 2rem;
+  float: left;
+  margin-right: 1rem;
+  font-size: 1.5rem;
   color: var(--primary-color);
-  margin-bottom: 1rem;
   transition: transform 0.3s ease;
 }
 
 h3 {
-  color: var(--primary-color);
+  color: var(--text-color);
   margin-bottom: 0.75rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 p {
   color: var(--text-color);
   font-size: 0.9rem;
   line-height: 1.6;
+  margin-left: 2.5rem;
 }
 
 @keyframes fadeIn {
