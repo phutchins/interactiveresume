@@ -44,12 +44,16 @@ const getIconForStrength = (title: string) => {
 .strength-card {
   background: none;
   border-bottom: 1px dashed #ddd;
-  padding: 1.5rem 0;
+  padding: 0.75rem 0;
   text-align: left;
   transition: all 0.3s ease;
   animation: fadeIn 0.5s ease forwards;
   animation-delay: var(--delay);
   opacity: 0;
+
+  &:first-child {
+    padding-top: 0.25rem;
+  }
 
   &:last-child {
     border-bottom: none;
@@ -75,15 +79,16 @@ const getIconForStrength = (title: string) => {
 
 h3 {
   color: var(--text-color);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
   font-size: 1.1rem;
 }
 
 p {
   color: var(--text-color);
   font-size: 0.9rem;
-  line-height: 1.6;
+  line-height: 1.4;
   margin-left: 2.5rem;
+  margin-bottom: 0;
 }
 
 @keyframes fadeIn {

@@ -18,8 +18,12 @@ const toggleDarkMode = () => {
 <template>
   <div :class="{ 'dark-mode': isDarkMode }" class="app">
     <div class="resume-container">
-      <div class="theme-toggle" @click="toggleDarkMode">
-        <font-awesome-icon :icon="isDarkMode ? 'sun' : 'moon'" />
+      <div class="theme-toggle-container">
+        <span class="theme-label" :class="{ 'active': !isDarkMode }">Light</span>
+        <div class="theme-toggle" @click="toggleDarkMode" :class="{ 'active': isDarkMode }">
+          <div class="toggle-dot"></div>
+        </div>
+        <span class="theme-label" :class="{ 'active': isDarkMode }">Dark</span>
       </div>
       <Resume />
     </div>
@@ -76,20 +80,126 @@ html, body {
   padding: 2rem;
 }
 
-.theme-toggle {
+.theme-toggle-container {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   z-index: 10;
+}
 
-  &:hover {
-    transform: scale(1.1);
+.theme-label {
+  font-size: 1rem;
+  color: var(--text-color);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  user-select: none;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.theme-toggle {
+  position: relative;
+  width: 3.5rem;
+  height: 2rem;
+  background-color: #4B9CFF;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.25rem;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0.75rem;
+    top: 35%;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  &.active {
+    background-color: #1e293b;
+
+    &::before {
+      right: unset;
+      left: 0.4rem;
+      width: 0.3rem;
+      height: 0.3rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    &::after {
+      right: unset;
+      left: 0.8rem;
+      top: 60%;
+      width: 0.2rem;
+      height: 0.2rem;
+      background-color: rgba(255, 255, 255, 0.7);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+  }
+
+  .toggle-dot {
+    position: absolute;
+    left: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      transform: scale(0);
+      background-color: transparent;
+    }
+  }
+
+  &.active .toggle-dot {
+    transform: translate(1.75rem, -50%);
+    background-color: #f1c40f;
+
+    &::before {
+      transform: scale(1);
+      background-color: #1e293b;
+      width: 85%;
+      height: 85%;
+      top: -10%;
+      left: 25%;
+      box-shadow: inset -3px -2px 0px rgba(255, 255, 255, 0.2);
+    }
   }
 }
 

@@ -192,6 +192,12 @@ section {
       text-justify: inter-word;
     }
   }
+
+  &.strengths {
+    h2 {
+      margin-bottom: 0.1rem;
+    }
+  }
 }
 
 .typing-effect {
