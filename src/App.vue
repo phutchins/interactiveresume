@@ -11,6 +11,7 @@ const isDarkMode = ref(false)
 
 const toggleDarkMode = () => {
   isDarkMode.value = !isDarkMode.value
+  document.body.classList.toggle('dark-mode')
 }
 </script>
 
@@ -33,6 +34,12 @@ const toggleDarkMode = () => {
   --text-color: #000000;
 }
 
+body {
+  background-color: var(--background-color);
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode,
 .dark-mode {
   --primary-color: #66B2FF;
   --secondary-color: #CCCCCC;
