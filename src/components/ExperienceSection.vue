@@ -102,6 +102,10 @@ const toggleExpanded = (index: number) => {
     padding: 1.5rem 0;
     border-bottom: 1px dashed #ddd;
 
+    &:first-child {
+      padding-top: 0.5rem;
+    }
+
     &:last-child {
       border-bottom: none;
     }
@@ -124,19 +128,21 @@ const toggleExpanded = (index: number) => {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .job-title-company {
   h3 {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: var(--text-color);
     margin-bottom: 0.25rem;
+    text-align: left;
   }
 
   h4 {
     font-size: 1rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
+    text-align: left;
   }
 }
 
@@ -161,7 +167,7 @@ const toggleExpanded = (index: number) => {
 .job-description {
   list-style-type: none;
   padding: 0;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   text-align: left;
 
   li {

@@ -171,7 +171,6 @@ h2 {
   font-size: 1.2rem;
   color: var(--primary-color);
   margin-bottom: 1rem;
-  text-transform: uppercase;
   font-weight: normal;
 }
 
@@ -181,8 +180,16 @@ section {
     color: var(--text-color);
     border-bottom: 3px solid var(--text-color);
     padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.3rem;
     font-weight: bold;
+  }
+
+  &.summary {
+    p {
+      margin-top: 1rem;
+      text-align: left;
+      text-justify: inter-word;
+    }
   }
 }
 

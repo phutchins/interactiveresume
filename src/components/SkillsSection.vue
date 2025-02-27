@@ -202,6 +202,8 @@ const chartOptions = {
 
 .skill-name {
   font-weight: 500;
+  color: var(--text-color);
+  text-align: left;
 }
 
 .skill-bar {

@@ -79,11 +79,13 @@ const advisoryRoles: Advisory[] = [
     font-size: 1.1rem;
     color: var(--primary-color);
     margin-bottom: 0.25rem;
+    text-align: left;
   }
 
   p {
     font-size: 0.9rem;
-    color: var(--secondary-color);
+    color: var(--text-color);
+    text-align: left;
   }
 }
 
