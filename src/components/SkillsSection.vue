@@ -7,18 +7,27 @@
           <font-awesome-icon
             :icon="['fas', expandedCategories[category] ? 'chevron-down' : 'chevron-right']"
             class="toggle-icon"
+            :class="{ 'rotated': expandedCategories[category] }"
           />
         </div>
-        <div v-if="!expandedCategories[category]" class="skills-preview">
-          {{ getPreviewText(category) }}
-        </div>
-        <ul v-else class="skills-list">
-          <li v-for="skill in getSkillsByCategory(category)"
-              :key="skill.name"
-              class="skill-item">
-            {{ skill.name }}
-          </li>
-        </ul>
+        <transition
+          name="expand"
+          @enter="startTransition"
+          @after-enter="endTransition"
+          @before-leave="startTransition"
+          @after-leave="endTransition"
+        >
+          <div v-if="!expandedCategories[category]" class="skills-preview">
+            {{ getPreviewText(category) }}
+          </div>
+          <ul v-else class="skills-list">
+            <li v-for="skill in getSkillsByCategory(category)"
+                :key="skill.name"
+                class="skill-item">
+              {{ skill.name }}
+            </li>
+          </ul>
+        </transition>
       </div>
     </div>
   </div>
@@ -93,6 +102,19 @@ const getPreviewText = (category: string) => {
   const categorySkills = getSkillsByCategory(category)
   return categorySkills.map(skill => skill.name).join(', ')
 }
+
+const startTransition = (element: HTMLElement) => {
+  element.style.height = 'auto'
+  const height = element.scrollHeight
+  element.style.height = '0'
+  // Force reflow
+  element.offsetHeight
+  element.style.height = height + 'px'
+}
+
+const endTransition = (element: HTMLElement) => {
+  element.style.height = ''
+}
 </script>
 
 <style lang="scss" scoped>
@@ -103,7 +125,7 @@ const getPreviewText = (category: string) => {
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 0.75rem;
 }
 
 .skill-category {
@@ -112,8 +134,8 @@ const getPreviewText = (category: string) => {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding-bottom: 0;
+    margin-bottom: 0;
 
     &:hover {
       h3 {
@@ -136,8 +158,30 @@ const getPreviewText = (category: string) => {
 .toggle-icon {
   color: var(--secondary-color);
   font-size: 0.9rem;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
   width: 16px;
+  flex-shrink: 0;
+
+  &.rotated {
+    transform: rotate(90deg);
+  }
+}
+
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  height: 0;
+  opacity: 0;
+}
+
+.skills-preview,
+.skills-list {
+  transition: all 0.3s ease;
 }
 
 .skills-preview {
@@ -146,13 +190,17 @@ const getPreviewText = (category: string) => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0.25rem 0;
+  padding: 0;
+  margin-top: 0.1rem;
+  text-align: left;
+  width: 100%;
+  display: block;
 }
 
 .skills-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0.1rem 0 0 0;
   columns: 2;
   column-gap: 2rem;
 }
@@ -177,7 +225,7 @@ const getPreviewText = (category: string) => {
 @media (max-width: 768px) {
   .skills-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 0.75rem;
   }
 
   .skills-list {
