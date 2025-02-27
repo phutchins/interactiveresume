@@ -6,8 +6,9 @@
           <h1>PHILIP HUTCHINS</h1>
           <h2>Engineering & Technology Leader</h2>
           <div class="typing-effect">
+            <span class="prompt">$ </span>
             <span class="typed-text">{{ currentOneLiner }}</span>
-            <span class="cursor" :class="{ 'typing': isTyping }">|</span>
+            <span class="cursor" :class="{ 'typing': isTyping }"></span>
           </div>
           <div class="contact-info">
             <a href="mailto:flipture@gmail.com" target="_blank" rel="noopener noreferrer">
@@ -196,17 +197,36 @@ section {
 .typing-effect {
   min-height: 2rem;
   margin: 1rem 0;
-  font-style: italic;
-  color: var(--secondary-color);
+  font-style: normal;
+  color: var(--text-color);
+  font-family: 'Courier New', monospace;
+  background-color: rgba(var(--primary-color-rgb), 0.05);
+  padding: 0.75rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+
+  .prompt {
+    color: var(--primary-color);
+    margin-right: 0.75rem;
+  }
+
+  .typed-text {
+    margin-right: 2px;
+  }
 
   .cursor {
     display: inline-block;
-    width: 2px;
+    width: 8px;
+    height: 1.2rem;
+    background-color: var(--text-color);
     animation: blink 1s infinite;
     margin-left: 2px;
+    opacity: 0.7;
 
     &.typing {
       animation: none;
+      opacity: 1;
     }
   }
 }
@@ -282,8 +302,8 @@ section {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.7; }
 }
 
 @media (max-width: 768px) {
