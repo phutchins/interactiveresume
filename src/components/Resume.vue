@@ -3,7 +3,12 @@
     <header class="header">
       <div class="header-content">
         <div class="header-left">
-          <h1>PHILIP HUTCHINS</h1>
+          <div class="name-row">
+            <h1>PHILIP HUTCHINS</h1>
+            <div class="theme-toggle" @click="$emit('toggle-dark-mode')" :class="{ 'active': isDarkMode }">
+              <div class="toggle-dot"></div>
+            </div>
+          </div>
           <h2>Engineering & Technology Leader</h2>
           <div class="typing-effect">
             <span class="prompt">$ </span>
@@ -115,6 +120,14 @@ onMounted(() => {
   }
   typeText(currentVersion.value.oneLiners[0])
 })
+
+const props = defineProps<{
+  isDarkMode: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'toggle-dark-mode'): void
+}>()
 </script>
 
 <style lang="scss" scoped>
@@ -341,5 +354,16 @@ section {
   section h2 {
     text-align: center;
   }
+}
+
+.name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.theme-toggle {
+  margin-left: 1rem;
 }
 </style>

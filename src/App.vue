@@ -18,13 +18,7 @@ const toggleDarkMode = () => {
 <template>
   <div :class="{ 'dark-mode': isDarkMode }" class="app">
     <div class="resume-container">
-      <div class="header-container">
-        <h1>PHILIP HUTCHINS</h1>
-        <div class="theme-toggle" @click="toggleDarkMode" :class="{ 'active': isDarkMode }">
-          <div class="toggle-dot"></div>
-        </div>
-      </div>
-      <Resume />
+      <Resume :isDarkMode="isDarkMode" @toggle-dark-mode="toggleDarkMode" />
     </div>
   </div>
 </template>
@@ -79,14 +73,25 @@ html, body {
   padding: 2rem;
 }
 
-.header-container {
+.theme-toggle-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  z-index: 10;
+}
 
-  h1 {
-    margin: 0;
+.theme-label {
+  font-size: 1rem;
+  color: var(--text-color);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  user-select: none;
+
+  &.active {
+    opacity: 1;
   }
 }
 
