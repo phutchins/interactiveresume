@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="actions">
+      <a href="/src/assets/PhilipHutchinsResume-2025.pdf" download class="download-btn" title="Download Resume PDF">
+        <font-awesome-icon :icon="['fas', 'file-pdf']" />
+      </a>
       <div class="theme-toggle" @click="$emit('toggle-dark-mode')" :class="{ 'active': isDarkMode }">
         <div class="toggle-dot"></div>
       </div>
@@ -9,9 +12,6 @@
         <font-awesome-icon :icon="['fas', 'download']" />
       </button>
       -->
-      <a href="/src/assets/PhilipHutchinsResume-2025.pdf" download class="download-btn" title="Download Resume PDF">
-        <font-awesome-icon :icon="['fas', 'file-pdf']" />
-      </a>
     </div>
 
     <div class="resume">
