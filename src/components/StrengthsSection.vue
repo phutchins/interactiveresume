@@ -7,8 +7,10 @@
       <div class="strength-icon">
         <font-awesome-icon :icon="getIconForStrength(strength.title)" />
       </div>
-      <h3>{{ strength.title }}</h3>
-      <p>{{ strength.description }}</p>
+      <div class="strength-content">
+        <h3>{{ strength.title }}</h3>
+        <p>{{ strength.description }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +52,8 @@ const getIconForStrength = (title: string) => {
   animation: fadeIn 0.5s ease forwards;
   animation-delay: var(--delay);
   opacity: 0;
+  display: flex;
+  align-items: flex-start;
 
   &:first-child {
     padding-top: 0.25rem;
@@ -70,11 +74,15 @@ const getIconForStrength = (title: string) => {
 }
 
 .strength-icon {
-  float: left;
-  margin-right: 1rem;
+  width: 2.5rem;
   font-size: 1.5rem;
   color: var(--primary-color);
   transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.strength-content {
+  flex: 1;
 }
 
 h3 {
@@ -87,8 +95,7 @@ p {
   color: var(--text-color);
   font-size: 0.85rem;
   line-height: 1.2;
-  margin-left: 2.5rem;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 @keyframes fadeIn {

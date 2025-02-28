@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBuilding } from '@fortawesome/free-solid-svg-icons'
-import type { Advisory } from '../types/resume'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBuilding } from '@fortawesome/free-solid-svg-icons';
+import type { Advisory } from '../types/resume';
 
 library.add(faBuilding)
 
@@ -76,16 +76,17 @@ const advisoryRoles: Advisory[] = [
 
 .advisory-content {
   h3 {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: var(--primary-color);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.05rem;
     text-align: left;
   }
 
   p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--text-color);
     text-align: left;
+    line-height: 1.2;
   }
 }
 
