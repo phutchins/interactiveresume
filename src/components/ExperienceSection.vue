@@ -238,16 +238,22 @@ const toggleExpanded = (index: number) => {
   text-align: left;
 
   li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.15rem;
+    padding-left: 1.25rem;
     position: relative;
     text-align: left;
+    font-size: 0.85rem;
+    line-height: 1.2;
 
     &::before {
       content: '•';
       position: absolute;
       left: 0;
       color: var(--primary-color);
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
