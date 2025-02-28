@@ -5,10 +5,17 @@
         <div class="job-title-company">
           <h3>{{ job.title }}</h3>
           <h4>{{ job.company }}</h4>
+          <p class="company-description">{{ job.companyDescription }}</p>
         </div>
         <div class="job-meta">
-          <span class="job-date">{{ job.startDate }} - {{ job.endDate }}</span>
-          <span class="job-location">{{ job.location }}</span>
+          <span class="job-date">
+            <font-awesome-icon :icon="['fas', 'calendar']" class="meta-icon" />
+            {{ job.startDate }} - {{ job.endDate }}
+          </span>
+          <span class="job-location">
+            <font-awesome-icon :icon="['fas', 'location-dot']" class="meta-icon" />
+            {{ job.location }}
+          </span>
         </div>
       </div>
 
@@ -27,13 +34,19 @@
 </template>
 
 <script setup lang="ts">
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCalendar, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref } from 'vue';
 import type { Experience } from '../types/resume';
+
+library.add(faCalendar, faLocationDot);
 
 const jobs: Experience[] = [
   {
     title: 'Co-Founder & CEO',
     company: 'Pencil Ink (stealth startup)',
+    companyDescription: 'Product & Project Management SaaS',
     location: 'Remote',
     startDate: '07/2023',
     endDate: 'Present',
@@ -47,6 +60,7 @@ const jobs: Experience[] = [
   {
     title: 'Contractor',
     company: 'DIMO',
+    companyDescription: 'Open Automotive Data Platform',
     location: 'Remote',
     startDate: '10/2023',
     endDate: 'Present',
@@ -60,6 +74,7 @@ const jobs: Experience[] = [
   {
     title: 'Chief Technology Officer',
     company: 'Proof',
+    companyDescription: 'Data Driven Impact Analysis',
     location: 'Remote / Miami, FL',
     startDate: '04/2022',
     endDate: '07/2023',
@@ -72,6 +87,7 @@ const jobs: Experience[] = [
   {
     title: 'Decentralization Workstream Lead',
     company: 'Gitcoin DAO',
+    companyDescription: 'Community Funding Tools',
     location: 'Remote',
     startDate: '05/2021',
     endDate: '03/2022',
@@ -85,6 +101,7 @@ const jobs: Experience[] = [
   {
     title: 'Vice President of Engineering and Product',
     company: 'Gravy Solutions',
+    companyDescription: 'Customer Retention',
     location: 'Remote / Atlanta, GA',
     startDate: '06/2020',
     endDate: '05/2021',
@@ -98,6 +115,7 @@ const jobs: Experience[] = [
   {
     title: 'Chief Technology Officer',
     company: 'Storj Labs Inc.',
+    companyDescription: 'Decentralized Cloud Storage Platform',
     location: 'Atlanta, GA / Remote',
     startDate: '03/2016',
     endDate: '12/2019',
@@ -169,6 +187,14 @@ const toggleExpanded = (index: number) => {
     font-size: 1rem;
     color: var(--primary-color);
     text-align: left;
+    margin-bottom: 0.25rem;
+  }
+
+  .company-description {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    text-align: left;
+    margin: 0;
   }
 }
 
@@ -178,6 +204,21 @@ const toggleExpanded = (index: number) => {
   align-items: flex-end;
   font-size: 0.9rem;
   color: var(--secondary-color);
+  min-width: 200px;
+  text-align: right;
+
+  .job-date, .job-location {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .meta-icon {
+    color: var(--primary-color);
+    width: 14px;
+  }
 }
 
 .job-content {

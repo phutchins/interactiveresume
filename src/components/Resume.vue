@@ -452,14 +452,14 @@ section {
     text-align: left;
     color: var(--text-color);
     border-bottom: 3px solid var(--text-color);
-    padding-bottom: 0.5rem;
-    margin-bottom: 0.3rem;
+    padding-bottom: 0.05rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
   }
 
   &.summary {
     p {
-      margin-top: 1rem;
+      margin-top: 0.5rem;
       text-align: left;
       text-justify: inter-word;
     }
@@ -743,9 +743,9 @@ section {
 
     h2 {
       font-size: 16px !important;
-      padding-bottom: 0.25rem !important;
-      margin-bottom: 0.75rem !important;
-      border-bottom: 2px solid currentColor !important;
+      padding-bottom: 0.05rem !important;
+      margin-bottom: 0.5rem !important;
+      border-bottom: 3px solid currentColor !important;
     }
   }
 

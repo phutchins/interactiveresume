@@ -40,6 +40,7 @@ export interface ResumeVersion {
 export interface Experience {
   title: string
   company: string
+  companyDescription: string
   location: string
   startDate: string
   endDate: string
