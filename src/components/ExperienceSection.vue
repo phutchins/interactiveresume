@@ -33,7 +33,7 @@ import type { Experience } from '../types/resume';
 const jobs: Experience[] = [
   {
     title: 'Co-Founder & CEO',
-    company: 'Pencil Ink',
+    company: 'Pencil Ink (stealth startup)',
     location: 'Remote',
     startDate: '07/2023',
     endDate: 'Present',
@@ -154,7 +154,7 @@ const toggleExpanded = (index: number) => {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 }
 
 .job-title-company {

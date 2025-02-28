@@ -77,18 +77,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { resumeVersions } from '../config/resumeVersions'
-import ExperienceSection from './ExperienceSection.vue'
-import StrengthsSection from './StrengthsSection.vue'
-import SkillsSection from './SkillsSection.vue'
-import AdvisorySection from './AdvisorySection.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEnvelope, faPhone, faLocationDot, faDownload } from '@fortawesome/free-solid-svg-icons'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faDownload, faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { resumeVersions } from '../config/resumeVersions'
+import AdvisorySection from './AdvisorySection.vue'
+import ExperienceSection from './ExperienceSection.vue'
+import SkillsSection from './SkillsSection.vue'
+import StrengthsSection from './StrengthsSection.vue'
 
 library.add(faEnvelope, faPhone, faLocationDot, faLinkedin, faDownload)
 
@@ -393,7 +393,7 @@ const downloadPDF = async () => {
 }
 
 .header {
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 
   &-content {
     display: flex;
@@ -405,8 +405,12 @@ const downloadPDF = async () => {
     flex: 1;
     text-align: left;
 
-    h1, h2 {
-      text-align: left;
+    h1 {
+      margin-bottom: 0.25rem;
+    }
+
+    h2 {
+      margin-bottom: 0.5rem;
     }
   }
 
@@ -440,7 +444,7 @@ h2 {
   font-size: 1.2rem;
   color: var(--primary-color);
   margin-bottom: 1rem;
-  font-weight: normal;
+  font-weight: 600;
 }
 
 section {
@@ -615,7 +619,7 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.1rem;
 
   .actions {
     display: flex;
@@ -690,15 +694,16 @@ section {
       h1 {
         font-size: 32px !important;
         line-height: 1.2 !important;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0.1rem !important;
         white-space: nowrap !important;
       }
 
       h2 {
         font-size: 18px !important;
         line-height: 1.2 !important;
-        margin-bottom: 1rem !important;
+        margin-bottom: 0.75rem !important;
         white-space: nowrap !important;
+        font-weight: 600 !important;
       }
     }
   }
