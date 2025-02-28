@@ -9,9 +9,11 @@
               <div class="theme-toggle" @click="$emit('toggle-dark-mode')" :class="{ 'active': isDarkMode }">
                 <div class="toggle-dot"></div>
               </div>
+              <!-- Temporarily disabled download button - uncomment to re-enable
               <button class="download-btn" @click="downloadPDF" title="Download PDF">
                 <font-awesome-icon :icon="['fas', 'download']" />
               </button>
+              -->
             </div>
           </div>
           <h2>Engineering & Technology Leader</h2>
@@ -83,9 +85,9 @@
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { faDownload, faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
-import html2canvas from 'html2canvas'
-import { jsPDF } from 'jspdf'
+// Temporarily commented out download icon - uncomment when re-enabling download feature
+// import { faDownload, faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faLocationDot, faPhone } from '@fortawesome/free-solid-svg-icons'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { resumeVersions } from '../config/resumeVersions'
@@ -94,7 +96,9 @@ import ExperienceSection from './ExperienceSection.vue'
 import SkillsSection from './SkillsSection.vue'
 import StrengthsSection from './StrengthsSection.vue'
 
-library.add(faEnvelope, faPhone, faLocationDot, faLinkedin, faDownload)
+library.add(faEnvelope, faPhone, faLocationDot, faLinkedin)
+// Temporarily commented out download icon - uncomment when re-enabling download feature
+// library.add(faDownload)
 
 const route = useRoute()
 const currentVersion = ref(resumeVersions.default)
@@ -140,6 +144,7 @@ const emit = defineEmits<{
   (e: 'toggle-dark-mode'): void
 }>()
 
+/* Temporarily disabled download functionality - uncomment to re-enable
 const downloadPDF = async () => {
   // Wait for any animations to complete
   await new Promise(resolve => setTimeout(resolve, 500))
@@ -387,6 +392,7 @@ const downloadPDF = async () => {
     document.body.removeChild(clone)
   }
 }
+*/
 </script>
 
 <style lang="scss" scoped>
