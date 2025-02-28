@@ -1,6 +1,6 @@
 <template>
   <div class="experience-section">
-    <div v-for="(job, index) in jobs" :key="index" class="job-card" @click="toggleExpanded(index)">
+    <div v-for="(job, index) in jobs" :key="index" class="job-card" :class="{ 'expanded': expandedJobs[index] }" @click="toggleExpanded(index)">
       <div class="job-header">
         <div class="job-title-company">
           <h3>{{ job.title }}</h3>
@@ -29,18 +29,21 @@
           </span>
         </div>
       </div>
+      <div v-if="!expandedJobs[index]" class="preview-hint">
+        <font-awesome-icon :icon="['fas', 'chevron-down']" class="chevron-icon" />
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCalendar, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faChevronDown, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { ref } from 'vue';
 import type { Experience } from '../types/resume';
 
-library.add(faCalendar, faLocationDot);
+library.add(faCalendar, faLocationDot, faChevronDown);
 
 const jobs: Experience[] = [
   {
@@ -161,10 +164,49 @@ const toggleExpanded = (index: number) => {
   border-radius: 0;
   cursor: pointer;
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 
   &:hover {
     transform: none;
     box-shadow: none;
+
+    &:not(.expanded) {
+      .preview-hint {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .job-content {
+        max-height: 45px;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  &:not(.expanded) {
+    .preview-hint {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.5rem;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: all 0.3s ease;
+      background: linear-gradient(to bottom, transparent, var(--background-color) 40%);
+      pointer-events: none;
+      z-index: 2;
+
+      .chevron-icon {
+        color: var(--primary-color);
+        font-size: 1rem;
+        animation: bounce 2s infinite;
+      }
+    }
   }
 }
 
@@ -229,10 +271,13 @@ const toggleExpanded = (index: number) => {
 .job-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: all 0.3s ease;
+  opacity: 0;
+  position: relative;
 
   &.expanded {
     max-height: 1000px;
+    opacity: 1;
   }
 }
 
@@ -294,6 +339,18 @@ const toggleExpanded = (index: number) => {
 
   .job-meta {
     align-items: flex-start;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-3px);
+  }
+  60% {
+    transform: translateY(-2px);
   }
 }
 </style>
