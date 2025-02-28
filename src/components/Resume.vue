@@ -73,6 +73,10 @@
         </section>
       </div>
     </main>
+
+    <footer class="footer-credit">
+      <p>Built by Philip Hutchins • <a href="https://github.com/phutchins/interactiveresume" target="_blank" rel="noopener noreferrer">View Source</a></p>
+    </footer>
   </div>
 </template>
 
@@ -782,6 +786,29 @@ section {
     svg {
       width: 12px !important;
       height: 12px !important;
+    }
+  }
+}
+
+.footer-credit {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(128, 128, 128, 0.2);
+  text-align: center;
+
+  p {
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+    margin: 0;
+  }
+
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.7;
     }
   }
 }

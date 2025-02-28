@@ -104,16 +104,17 @@ const getPreviewText = (category: string) => {
 }
 
 const startTransition = (element: HTMLElement) => {
-  element.style.height = 'auto'
   const height = element.scrollHeight
   element.style.height = '0'
   // Force reflow
   element.offsetHeight
-  element.style.height = height + 'px'
+  element.style.height = `${height}px`
+  element.style.overflow = 'hidden'
 }
 
 const endTransition = (element: HTMLElement) => {
   element.style.height = ''
+  element.style.overflow = ''
 }
 </script>
 
@@ -158,7 +159,7 @@ const endTransition = (element: HTMLElement) => {
 .toggle-icon {
   color: var(--secondary-color);
   font-size: 0.85rem;
-  transition: all 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   width: 16px;
   flex-shrink: 0;
 
@@ -169,7 +170,7 @@ const endTransition = (element: HTMLElement) => {
 
 .expand-enter-active,
 .expand-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
@@ -177,11 +178,19 @@ const endTransition = (element: HTMLElement) => {
 .expand-leave-to {
   height: 0;
   opacity: 0;
+  transform: translateY(-10px);
+}
+
+.expand-enter-to,
+.expand-leave-from {
+  height: auto;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .skills-preview,
 .skills-list {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skills-preview {
@@ -196,6 +205,7 @@ const endTransition = (element: HTMLElement) => {
   text-align: left;
   width: 100%;
   display: block;
+  transform-origin: top;
 }
 
 .skills-list {
@@ -204,6 +214,7 @@ const endTransition = (element: HTMLElement) => {
   margin: 0.1rem 0 0 0;
   columns: 2;
   column-gap: 2rem;
+  transform-origin: top;
 }
 
 .skill-item {
