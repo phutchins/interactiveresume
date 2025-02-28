@@ -34,9 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faChevronRight, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import { computed, ref } from 'vue'
 
 library.add(faChevronRight, faChevronDown)
 
@@ -148,7 +148,7 @@ const endTransition = (element: HTMLElement) => {
 
     h3 {
       color: var(--text-color);
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       margin: 0;
       transition: color 0.2s ease;
     }
@@ -157,7 +157,7 @@ const endTransition = (element: HTMLElement) => {
 
 .toggle-icon {
   color: var(--secondary-color);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   transition: all 0.3s ease;
   width: 16px;
   flex-shrink: 0;
@@ -186,7 +186,8 @@ const endTransition = (element: HTMLElement) => {
 
 .skills-preview {
   color: var(--text-color);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -212,7 +213,8 @@ const endTransition = (element: HTMLElement) => {
   position: relative;
   padding-left: 1.5rem;
   break-inside: avoid;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.2;
 
   &::before {
     content: '•';

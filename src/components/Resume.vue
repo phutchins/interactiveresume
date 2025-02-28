@@ -462,6 +462,8 @@ section {
       margin-top: 0.5rem;
       text-align: left;
       text-justify: inter-word;
+      font-size: 0.85rem;
+      line-height: 1.2;
     }
   }
 

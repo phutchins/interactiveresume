@@ -14,9 +14,9 @@
 </template>
 
 <script setup lang="ts">
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLightbulb, faHandsHelping, faChartLine } from '@fortawesome/free-solid-svg-icons'
-import type { Strength } from '../types/resume'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faChartLine, faHandsHelping, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import type { Strength } from '../types/resume';
 
 library.add(faLightbulb, faHandsHelping, faChartLine)
 
@@ -80,13 +80,13 @@ const getIconForStrength = (title: string) => {
 h3 {
   color: var(--text-color);
   margin-bottom: 0.25rem;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 
 p {
   color: var(--text-color);
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.2;
   margin-left: 2.5rem;
   margin-bottom: 0;
 }
