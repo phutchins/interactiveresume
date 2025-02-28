@@ -143,11 +143,11 @@ const toggleExpanded = (index: number) => {
   gap: 0;
 
   .job-card {
-    padding: 1.5rem 0;
+    padding: 1rem 0;
     border-bottom: 1px dashed #ddd;
 
     &:first-child {
-      padding-top: 0.5rem;
+      padding-top: 0.35rem;
     }
 
     &:last-child {
@@ -179,16 +179,17 @@ const toggleExpanded = (index: number) => {
   h3 {
     font-size: 1.2rem;
     color: var(--text-color);
-    margin-bottom: 0rem;
+    margin-bottom: 0.1rem;
     text-align: left;
     line-height: 1.1;
+    font-weight: 500;
   }
 
   h4 {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--primary-color);
     text-align: left;
-    margin-bottom: 0.05rem;
+    margin-bottom: 0.25rem;
     line-height: 1.1;
   }
 
