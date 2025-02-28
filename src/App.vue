@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 import { ref } from 'vue'
 import Resume from './components/Resume.vue'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faSun, faMoon)
 
@@ -56,6 +55,7 @@ html, body {
 .app {
   min-height: 100vh;
   width: 100%;
+  max-width: 100vw;
   background-color: var(--background-color);
   color: var(--text-color);
   transition: all 0.3s ease;
@@ -64,13 +64,25 @@ html, body {
   align-items: flex-start;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .resume-container {
   position: relative;
   max-width: 1200px;
   width: 100%;
-  padding: 2rem;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  .resume-container {
+    padding: 0;
+    width: 100%;
+  }
 }
 
 .theme-toggle-container {

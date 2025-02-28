@@ -414,37 +414,52 @@ const downloadPDF = async () => {
 
 .resume {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   position: relative;
-  padding-top: 4rem; /* Add padding to account for the fixed actions */
+  padding-top: 4rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .header {
   margin-bottom: 1rem;
+  width: 100%;
 
   &-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
+    gap: 2rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   &-left {
     flex: 1;
     text-align: left;
+    min-width: 0; // This helps with text overflow
+    max-width: calc(100% - 220px);
 
-    h1 {
-      margin-bottom: 0.25rem;
+    .name-row {
+      width: 100%;
+
+      h1 {
+        width: 100%;
+        text-align: left;
+      }
     }
 
     h2 {
-      margin-bottom: 0.5rem;
+      width: 100%;
+      text-align: left;
     }
   }
 
   &-right {
-    flex: 0 0 200px;
-    margin-left: 2rem;
+    width: 200px;
+    flex-shrink: 0;
   }
 }
 
@@ -615,33 +630,102 @@ section {
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    flex-direction: column;
+  .resume {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.5rem;
+    padding-top: 3rem;
+    margin: 0;
+    overflow-x: hidden;
   }
 
-  .header-content {
+  .main-content {
     flex-direction: column;
-    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
 
-    .header-left {
-      text-align: center;
-
-      h1, h2 {
-        text-align: center;
-      }
+    .left-column,
+    .right-column {
+      width: 100%;
+      padding: 0;
+      margin: 0;
     }
+  }
 
-    .header-right {
-      margin: 2rem 0;
+  .header {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    &-content {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+  }
+
+  section {
+    margin-bottom: 1.5rem;
+    width: 100%;
+    padding: 0;
+  }
+
+  .typing-effect {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 1rem 0;
+  }
+
+  .contact-info {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .actions {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume {
+    padding: 0.25rem;
+    padding-top: 3rem;
+  }
+
+  .header {
+    &-content {
+      .header-left {
+        h1 {
+          font-size: 1.5rem;
+        }
+      }
     }
   }
 
   .contact-info {
-    justify-content: center;
+    padding: 0;
+    margin-top: 0.5rem;
+    gap: 0.25rem;
+    justify-content: flex-start;
+    width: 100%;
+
+    a {
+      font-size: 0.75rem;
+      padding: 0.1rem 0.25rem;
+    }
   }
 
-  section h2 {
-    text-align: center;
+  .job-meta {
+    min-width: unset;
+    width: 100%;
+    font-size: 0.8rem;
   }
 }
 
