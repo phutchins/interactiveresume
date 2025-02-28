@@ -132,7 +132,14 @@ const jobs: Experience[] = [
   }
 ]
 
-const expandedJobs = ref(new Array(jobs.length).fill(true))
+const expandedJobs = ref([
+  true,  // Pencil Ink
+  false, // DIMO
+  true,  // Proof
+  false, // Gitcoin DAO
+  true,  // Gravy Solutions
+  true   // Storj Labs
+])
 
 const toggleExpanded = (index: number) => {
   expandedJobs.value[index] = !expandedJobs.value[index]
