@@ -27,10 +27,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Experience } from '../types/resume'
+import { ref } from 'vue';
+import type { Experience } from '../types/resume';
 
 const jobs: Experience[] = [
+  {
+    title: 'Co-Founder & CEO',
+    company: 'Pencil Ink',
+    location: 'Remote',
+    startDate: '07/2023',
+    endDate: 'Present',
+    description: [
+      'Bootstrapped and launched an end-to-end product & project management SaaS platform from concept to alpha with paying customers',
+      'Defined go-to-market strategy, pricing models, and early sales efforts, securing initial revenue traction',
+      'Spearheaded fundraising efforts, engaging with investors and accelerators to drive early-stage growth'
+    ],
+    technologies: ['Product Management', 'SaaS', 'Startup Leadership']
+  },
+  {
+    title: 'Contractor',
+    company: 'DIMO',
+    location: 'Remote',
+    startDate: '10/2023',
+    endDate: 'Present',
+    description: [
+      'Designed and built deployment orchestration and automation software (DIMO Node) using Pulumi and Golang, streamlining node deployment, upgrades, and management',
+      'Enabled developers to easily run and test DIMO software locally, improving development efficiency and iteration speed',
+      'Facilitated decentralization by allowing partners and community members to deploy and operate their own nodes, reinforcing DIMO\'s distributed network vision'
+    ],
+    technologies: ['Golang', 'Pulumi', 'DevOps', 'Automation']
+  },
   {
     title: 'Chief Technology Officer',
     company: 'Proof',
