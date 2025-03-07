@@ -129,6 +129,64 @@ const jobs: Experience[] = [
       'Launched a fully decentralized cloud storage platform surpassing performance of AWS and GCP cloud storage'
     ],
     technologies: ['Cloud Storage', 'Blockchain', 'Security']
+  },
+  {
+    title: 'Site Reliability Engineer',
+    company: 'Yik Yak',
+    companyDescription: 'Geo Location Based Social Media Platform',
+    location: 'Atlanta, GA',
+    startDate: '09/2015',
+    endDate: '03/2016',
+    description: [
+      'Hired to build scalable infrastructure in AWS and GCE for applications written in a multitude of languages',
+      'Worked with development teams to design applications in ways that scale, are easily supportable, reusable, and resilient to change and failure.',
+      'Leverage cloud solutions in AWS and GCE to solve problems with managing logs, queues, etc.',
+      'Automation of deployments using Kubernetes, Docker and custom-built solutions to enable fast feedback to developers.'
+    ],
+    technologies: ['AWS', 'GCE', 'Kubernetes', 'Docker', 'Infrastructure']
+  },
+  {
+    title: 'Director of DevOps',
+    company: 'BitPay',
+    companyDescription: 'Bitcoin Payment Processor',
+    location: 'Atlanta, GA',
+    startDate: '09/2014',
+    endDate: '10/2015',
+    description: [
+      'Hired and promoted rapidly through the ranks of this organization. Explored stakeholder concerns and re-engineered business processes in order to exploit opportunities, recommended simplification, improvement or redefinition of the processes and adjusted IT strategy to the business strategy.',
+      'Managed and mentored a team that was responsible for production and non-production server infrastructure, deployment pipeline, analytics tools, monitoring and operational tasks with a focus on security.',
+      'Identified bottlenecks in workflow and implemented solutions that increased productivity and decreased resistance with ideas and feedback from the people who the changes most affected.',
+      'Developed tools and automation to save time and increase confidence in the reliability of the codebase.',
+      'Identified and automated many repetitive tasks to save time for developers and operations.'
+    ],
+    technologies: ['DevOps', 'Team Leadership', 'Infrastructure']
+  },
+  {
+    title: 'Senior Release Engineer (DevOps)',
+    company: 'DealerMatch',
+    companyDescription: 'B2B Automotive Sales Software',
+    location: 'Atlanta, GA',
+    startDate: '10/2013',
+    endDate: '09/2014',
+    description: []
+  },
+  {
+    title: 'Systems Engineer',
+    company: 'Turner Broadcasting',
+    companyDescription: 'Media and Entertainment',
+    location: 'Atlanta, GA',
+    startDate: '06/2005',
+    endDate: '09/2014',
+    description: []
+  },
+  {
+    title: 'Web Developer / Software Engineer',
+    company: 'Software Creations, Inc.',
+    companyDescription: 'Software Development and Consulting',
+    location: 'Atlanta, GA',
+    startDate: '09/2003',
+    endDate: '06/2005',
+    description: []
   }
 ]
 
@@ -138,7 +196,12 @@ const expandedJobs = ref([
   true,  // Proof
   false, // Gitcoin DAO
   true,  // Gravy Solutions
-  true   // Storj Labs
+  true,  // Storj Labs
+  false, // Yik Yak
+  false, // BitPay
+  false, // DealerMatch
+  false, // Turner Broadcasting
+  false, // Software Creations
 ])
 
 const toggleExpanded = (index: number) => {
