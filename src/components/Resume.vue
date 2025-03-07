@@ -4,7 +4,7 @@
       <a href="/PhilipHutchinsResume-2025.pdf" download class="download-btn" title="Download Resume PDF">
         <font-awesome-icon :icon="['fas', 'file-pdf']" />
       </a>
-      <div class="theme-toggle" @click="$emit('toggle-dark-mode')" :class="{ 'active': isDarkMode }">
+      <div class="theme-toggle" @click="emit('toggle-dark-mode')" :class="{ 'active': isDarkMode }">
         <div class="toggle-dot"></div>
       </div>
       <!-- Temporarily disabled download button - uncomment to re-enable
@@ -142,13 +142,13 @@ onMounted(() => {
   typeText(currentVersion.value.oneLiners[0])
 })
 
-// const props = defineProps<{
-//   isDarkMode: boolean
-// }>()
+defineProps<{
+  isDarkMode: boolean
+}>()
 
-// const emit = defineEmits<{
-//   (e: 'toggle-dark-mode'): void
-// }>()
+const emit = defineEmits<{
+  (e: 'toggle-dark-mode'): void
+}>()
 
 /* Temporarily disabled download functionality - uncomment to re-enable
 const downloadPDF = async () => {
