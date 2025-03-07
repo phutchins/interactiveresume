@@ -142,13 +142,13 @@ onMounted(() => {
   typeText(currentVersion.value.oneLiners[0])
 })
 
-const props = defineProps<{
-  isDarkMode: boolean
-}>()
+// const props = defineProps<{
+//   isDarkMode: boolean
+// }>()
 
-const emit = defineEmits<{
-  (e: 'toggle-dark-mode'): void
-}>()
+// const emit = defineEmits<{
+//   (e: 'toggle-dark-mode'): void
+// }>()
 
 /* Temporarily disabled download functionality - uncomment to re-enable
 const downloadPDF = async () => {

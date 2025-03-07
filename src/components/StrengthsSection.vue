@@ -22,7 +22,7 @@ import type { Strength } from '../types/resume';
 
 library.add(faLightbulb, faHandsHelping, faChartLine)
 
-const props = defineProps<{
+defineProps<{
   strengths: Strength[]
 }>()
 

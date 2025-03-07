@@ -103,18 +103,21 @@ const getPreviewText = (category: string) => {
   return categorySkills.map(skill => skill.name).join(', ')
 }
 
-const startTransition = (element: HTMLElement) => {
-  const height = element.scrollHeight
-  element.style.height = '0'
+const startTransition = (element: Element, done?: () => void) => {
+  const htmlElement = element as HTMLElement
+  const height = htmlElement.scrollHeight
+  htmlElement.style.height = '0'
   // Force reflow
-  element.offsetHeight
-  element.style.height = `${height}px`
-  element.style.overflow = 'hidden'
+  htmlElement.offsetHeight
+  htmlElement.style.height = `${height}px`
+  htmlElement.style.overflow = 'hidden'
+  if (done) done()
 }
 
-const endTransition = (element: HTMLElement) => {
-  element.style.height = ''
-  element.style.overflow = ''
+const endTransition = (element: Element) => {
+  const htmlElement = element as HTMLElement
+  htmlElement.style.height = ''
+  htmlElement.style.overflow = ''
 }
 </script>
 
