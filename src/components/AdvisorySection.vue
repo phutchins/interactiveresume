@@ -22,16 +22,7 @@ import type { Advisory } from '../types/resume';
 
 library.add(faBuilding)
 
-const advisoryRoles: Advisory[] = [
-  {
-    company: 'Verady',
-    role: 'Board of Advisors'
-  },
-  {
-    company: 'Storj Labs',
-    role: 'Board of Advisors'
-  }
-]
+defineProps<{ advisoryRoles: Advisory[] }>()
 </script>
 
 <style lang="scss" scoped>

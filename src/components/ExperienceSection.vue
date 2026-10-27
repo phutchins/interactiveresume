@@ -1,38 +1,40 @@
 <template>
   <div class="experience-section">
-    <div v-for="(job, index) in jobs" :key="index" class="job-card" :class="{ 'expanded': expandedJobs[index] }" @click="toggleExpanded(index)">
-      <div class="job-header">
-        <div class="job-title-company">
-          <h3>{{ job.title }}</h3>
-          <h4>{{ job.company }}</h4>
-          <p class="company-description">{{ job.companyDescription }}</p>
-        </div>
-        <div class="job-meta">
+    <article v-for="job in jobs" :key="job.id" class="job-card" :class="{ expanded: isExpanded(job) }">
+      <button class="job-header" type="button" :disabled="!hasDetails(job)"
+              :aria-label="`${job.title} at ${job.company}`"
+              :aria-expanded="hasDetails(job) ? isExpanded(job) : undefined"
+              :aria-controls="hasDetails(job) ? `job-${job.id}` : undefined"
+              @click="toggleExpanded(job)">
+        <span class="job-title-company">
+          <span class="job-title">{{ job.title }}</span>
+          <span class="job-company">{{ job.company }}</span>
+          <span v-if="job.companyDescription" class="company-description">{{ job.companyDescription }}</span>
+        </span>
+        <span class="job-meta">
           <span class="job-date">
             <font-awesome-icon :icon="['fas', 'calendar']" class="meta-icon" />
             {{ job.startDate }} - {{ job.endDate }}
           </span>
+          <span v-if="job.employmentType">{{ job.employmentType }}</span>
           <span class="job-location">
             <font-awesome-icon :icon="['fas', 'location-dot']" class="meta-icon" />
             {{ job.location }}
           </span>
-        </div>
-      </div>
-
-      <div class="job-content" :class="{ 'expanded': expandedJobs[index] }">
+          <font-awesome-icon v-if="hasDetails(job)" :icon="['fas', 'chevron-down']" class="expand-icon"
+                             :class="{ rotated: isExpanded(job) }" />
+        </span>
+      </button>
+      <p v-if="job.note" class="job-note">{{ job.note }}</p>
+      <div v-if="hasDetails(job)" v-show="isExpanded(job)" :id="`job-${job.id}`" class="job-content expanded">
         <ul class="job-description">
-          <li v-for="(item, i) in job.description" :key="i">{{ item }}</li>
+          <li v-for="item in job.description" :key="item">{{ item }}</li>
         </ul>
-        <div v-if="job.technologies" class="job-technologies">
-          <span v-for="tech in job.technologies" :key="tech" class="technology-tag">
-            {{ tech }}
-          </span>
+        <div v-if="job.technologies?.length" class="job-technologies">
+          <span v-for="tech in job.technologies" :key="tech" class="technology-tag">{{ tech }}</span>
         </div>
       </div>
-      <div v-if="!expandedJobs[index]" class="preview-hint">
-        <font-awesome-icon :icon="['fas', 'chevron-down']" class="chevron-icon" />
-      </div>
-    </div>
+    </article>
   </div>
 </template>
 
@@ -45,167 +47,14 @@ import type { Experience } from '../types/resume';
 
 library.add(faCalendar, faLocationDot, faChevronDown);
 
-const jobs: Experience[] = [
-  {
-    title: 'Co-Founder & CEO',
-    company: 'Pencil Ink (stealth startup)',
-    companyDescription: 'Product & Project Management SaaS',
-    location: 'Remote',
-    startDate: '07/2023',
-    endDate: 'Present',
-    description: [
-      'Bootstrapped and launched an end-to-end product & project management SaaS platform from concept to alpha with paying customers',
-      'Defined go-to-market strategy, pricing models, and early sales efforts, securing initial revenue traction',
-      'Spearheaded fundraising efforts, engaging with investors and accelerators to drive early-stage growth'
-    ],
-    technologies: ['Product Management', 'SaaS', 'Startup Leadership']
-  },
-  {
-    title: 'Contractor',
-    company: 'DIMO',
-    companyDescription: 'Open Automotive Data Platform',
-    location: 'Remote',
-    startDate: '10/2023',
-    endDate: 'Present',
-    description: [
-      'Designed and built deployment orchestration and automation software (DIMO Node) using Pulumi and Golang, streamlining node deployment, upgrades, and management',
-      'Enabled developers to easily run and test DIMO software locally, improving development efficiency and iteration speed',
-      'Facilitated decentralization by allowing partners and community members to deploy and operate their own nodes, reinforcing DIMO\'s distributed network vision'
-    ],
-    technologies: ['Golang', 'Pulumi', 'DevOps', 'Automation']
-  },
-  {
-    title: 'Chief Technology Officer',
-    company: 'Proof',
-    companyDescription: 'Data Driven Impact Analysis',
-    location: 'Remote / Miami, FL',
-    startDate: '04/2022',
-    endDate: '07/2023',
-    description: [
-      'Boosted engineering efficiency by 25-35%, reducing development environment issues from 30-40% to under 5% and saving apx $360K-$600K annually by eliminating the need for 4-5 additional hires',
-      'Shifted company from sales led to product lead growth building a platform that drove product adoption'
-    ],
-    technologies: ['Product Management', 'Team Leadership', 'Infrastructure']
-  },
-  {
-    title: 'Decentralization Workstream Lead',
-    company: 'Gitcoin DAO',
-    companyDescription: 'Community Funding Tools',
-    location: 'Remote',
-    startDate: '05/2021',
-    endDate: '03/2022',
-    description: [
-      'Launched token and started initial workstreams forming the Gitcoin DAO',
-      'Architected and built decentralized versions of Gitcoins products',
-      'Built and lead team creating operations and policies from the ground up'
-    ],
-    technologies: ['Web3', 'Blockchain', 'Smart Contracts']
-  },
-  {
-    title: 'Vice President of Engineering and Product',
-    company: 'Gravy Solutions',
-    companyDescription: 'Customer Retention',
-    location: 'Remote / Atlanta, GA',
-    startDate: '06/2020',
-    endDate: '05/2021',
-    description: [
-      'Increased profit margins by more than 70% by architecting and building app reducing manual work and required support',
-      'Joined as individual contributor building POC hands on',
-      'Recruited team to scale POC'
-    ],
-    technologies: ['Product Development', 'Team Building', 'Architecture']
-  },
-  {
-    title: 'Chief Technology Officer',
-    company: 'Storj Labs Inc.',
-    companyDescription: 'Decentralized Cloud Storage Platform',
-    location: 'Atlanta, GA / Remote',
-    startDate: '03/2016',
-    endDate: '12/2019',
-    description: [
-      'Joined as 3rd employee handling security, deployments, and product direction',
-      'Lead successful in-house token sale, distribution, and conversion with 0 security incidents raising 30M in funding',
-      'Built teams growing company to over 50 employees',
-      'Launched a fully decentralized cloud storage platform surpassing performance of AWS and GCP cloud storage'
-    ],
-    technologies: ['Cloud Storage', 'Blockchain', 'Security']
-  },
-  {
-    title: 'Site Reliability Engineer',
-    company: 'Yik Yak',
-    companyDescription: 'Geo Location Based Social Media Platform',
-    location: 'Atlanta, GA',
-    startDate: '09/2015',
-    endDate: '03/2016',
-    description: [
-      'Hired to build scalable infrastructure in AWS and GCE for applications written in a multitude of languages',
-      'Worked with development teams to design applications in ways that scale, are easily supportable, reusable, and resilient to change and failure.',
-      'Leverage cloud solutions in AWS and GCE to solve problems with managing logs, queues, etc.',
-      'Automation of deployments using Kubernetes, Docker and custom-built solutions to enable fast feedback to developers.'
-    ],
-    technologies: ['AWS', 'GCE', 'Kubernetes', 'Docker', 'Infrastructure']
-  },
-  {
-    title: 'Director of DevOps',
-    company: 'BitPay',
-    companyDescription: 'Bitcoin Payment Processor',
-    location: 'Atlanta, GA',
-    startDate: '09/2014',
-    endDate: '10/2015',
-    description: [
-      'Hired and promoted rapidly through the ranks of this organization. Explored stakeholder concerns and re-engineered business processes in order to exploit opportunities, recommended simplification, improvement or redefinition of the processes and adjusted IT strategy to the business strategy.',
-      'Managed and mentored a team that was responsible for production and non-production server infrastructure, deployment pipeline, analytics tools, monitoring and operational tasks with a focus on security.',
-      'Identified bottlenecks in workflow and implemented solutions that increased productivity and decreased resistance with ideas and feedback from the people who the changes most affected.',
-      'Developed tools and automation to save time and increase confidence in the reliability of the codebase.',
-      'Identified and automated many repetitive tasks to save time for developers and operations.'
-    ],
-    technologies: ['DevOps', 'Team Leadership', 'Infrastructure']
-  },
-  {
-    title: 'Senior Release Engineer (DevOps)',
-    company: 'DealerMatch',
-    companyDescription: 'B2B Automotive Sales Software',
-    location: 'Atlanta, GA',
-    startDate: '10/2013',
-    endDate: '09/2014',
-    description: []
-  },
-  {
-    title: 'Systems Engineer',
-    company: 'Turner Broadcasting',
-    companyDescription: 'Media and Entertainment',
-    location: 'Atlanta, GA',
-    startDate: '06/2005',
-    endDate: '09/2014',
-    description: []
-  },
-  {
-    title: 'Web Developer / Software Engineer',
-    company: 'Software Creations, Inc.',
-    companyDescription: 'Software Development and Consulting',
-    location: 'Atlanta, GA',
-    startDate: '09/2003',
-    endDate: '06/2005',
-    description: []
-  }
-]
+defineProps<{ jobs: Experience[] }>()
 
-const expandedJobs = ref([
-  true,  // Pencil Ink
-  false, // DIMO
-  true,  // Proof
-  false, // Gitcoin DAO
-  true,  // Gravy Solutions
-  true,  // Storj Labs
-  false, // Yik Yak
-  false, // BitPay
-  false, // DealerMatch
-  false, // Turner Broadcasting
-  false, // Software Creations
-])
-
-const toggleExpanded = (index: number) => {
-  expandedJobs.value[index] = !expandedJobs.value[index]
+// Track the stable role ID so inserting or reordering jobs cannot shift state.
+const expansionOverrides = ref<Record<string, boolean>>({})
+const isExpanded = (job: Experience) => expansionOverrides.value[job.id] ?? job.expandedByDefault ?? false
+const hasDetails = (job: Experience) => job.description.length > 0 || Boolean(job.technologies?.length)
+const toggleExpanded = (job: Experience) => {
+  expansionOverrides.value[job.id] = !isExpanded(job)
 }
 </script>
 
@@ -232,55 +81,32 @@ const toggleExpanded = (index: number) => {
 .job-card {
   background: none;
   border-radius: 0;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
-
-  &:hover {
-    transform: none;
-    box-shadow: none;
-
-    &:not(.expanded) {
-      .preview-hint {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .job-content {
-        max-height: 45px;
-        opacity: 0.4;
-      }
-    }
-  }
-
-  &:not(.expanded) {
-    .preview-hint {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0.5rem;
-      opacity: 0;
-      transform: translateY(5px);
-      transition: all 0.3s ease;
-      background: linear-gradient(to bottom, transparent, var(--background-color) 40%);
-      pointer-events: none;
-      z-index: 2;
-
-      .chevron-icon {
-        color: var(--primary-color);
-        font-size: 1rem;
-        animation: bounce 2s infinite;
-      }
-    }
-  }
 }
 
 .job-header {
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  gap: 1rem;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+  }
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -288,7 +114,10 @@ const toggleExpanded = (index: number) => {
 }
 
 .job-title-company {
-  h3 {
+  min-width: 0;
+
+  > span { display: block; }
+  .job-title {
     font-size: 1.2rem;
     color: var(--text-color);
     margin-bottom: 0.1rem;
@@ -297,7 +126,7 @@ const toggleExpanded = (index: number) => {
     font-weight: 500;
   }
 
-  h4 {
+  .job-company {
     font-size: 0.9rem;
     color: var(--primary-color);
     text-align: left;
@@ -321,7 +150,7 @@ const toggleExpanded = (index: number) => {
   align-items: flex-end;
   font-size: 0.9rem;
   color: var(--secondary-color);
-  min-width: 200px;
+  flex-shrink: 0;
   text-align: right;
 
   .job-date, .job-location {
@@ -409,18 +238,24 @@ const toggleExpanded = (index: number) => {
 
   .job-meta {
     align-items: flex-start;
+    text-align: left;
+
+    .job-date, .job-location { justify-content: flex-start; }
   }
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-3px);
-  }
-  60% {
-    transform: translateY(-2px);
-  }
+.job-note {
+  margin: 0.5rem 0;
+  color: var(--secondary-color);
+  font-size: 0.85rem;
+  text-align: left;
 }
+
+.expand-icon {
+  margin-top: 0.4rem;
+  color: var(--primary-color);
+  transition: transform 0.2s;
+  &.rotated { transform: rotate(180deg); }
+}
+
 </style>
