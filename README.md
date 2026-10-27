@@ -24,10 +24,25 @@ npm install
 npm run dev
 ```
 
-3. Build for production:
+3. Type-check and build for production:
 ```bash
 npm run build
 ```
+
+4. Preview the production build:
+```bash
+npm run preview
+```
+
+## Application Structure
+
+- `src/main.ts` registers the router and shared icons; `src/App.vue` owns the light/dark theme.
+- `src/components/Resume.vue` composes the resume, contact links, typing animation, and PDF download.
+- `src/config/resumeVersions.ts` selects content with the `?version=` query parameter, falling back to `default`.
+- The section components render expandable experience and skill categories, strengths, and advisory roles.
+- Files in `public/` are copied directly into `dist/` by Vite. The PDF download must be updated alongside the web content.
+
+The production site is https://resume.phutchins.com and the source repository is https://github.com/phutchins/interactiveresume. This repository builds a static `dist/` directory; it does not contain a deployment workflow. Verify changes with the production build and local preview before merging.
 
 ## Resume Versions
 
