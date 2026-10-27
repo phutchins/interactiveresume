@@ -1,15 +1,17 @@
 <template>
   <div class="skills-section">
     <div class="skills-grid">
-      <div v-for="category in categories" :key="category" class="skill-category">
-        <div class="category-header" @click="toggleCategory(category)">
-          <h3>{{ category }}</h3>
+      <div v-for="category in categories" :key="category.name" class="skill-category">
+        <button class="category-header" type="button" @click="toggleCategory(category.name)"
+                :aria-expanded="Boolean(expandedCategories[category.name])">
+          <span>{{ category.name }}</span>
           <font-awesome-icon
-            :icon="['fas', expandedCategories[category] ? 'chevron-down' : 'chevron-right']"
+            :icon="['fas', 'chevron-right']"
             class="toggle-icon"
-            :class="{ 'rotated': expandedCategories[category] }"
+            :class="{ 'rotated': expandedCategories[category.name] }"
           />
-        </div>
+        </button>
+        <p v-if="category.note" class="category-note">{{ category.note }}</p>
         <transition
           name="expand"
           @enter="startTransition"
@@ -17,14 +19,14 @@
           @before-leave="startTransition"
           @after-leave="endTransition"
         >
-          <div v-if="!expandedCategories[category]" class="skills-preview">
-            {{ getPreviewText(category) }}
+          <div v-if="!expandedCategories[category.name]" class="skills-preview">
+            {{ category.skills.join(', ') }}
           </div>
           <ul v-else class="skills-list">
-            <li v-for="skill in getSkillsByCategory(category)"
-                :key="skill.name"
+            <li v-for="skill in category.skills"
+                :key="skill"
                 class="skill-item">
-              {{ skill.name }}
+              {{ skill }}
             </li>
           </ul>
         </transition>
@@ -36,71 +38,16 @@
 <script setup lang="ts">
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import type { SkillCategory } from '../types/resume'
 
 library.add(faChevronRight, faChevronDown)
 
-interface Skill {
-  name: string
-  category: string
-}
-
-const skills: Skill[] = [
-  // Leadership & Management
-  { name: 'Engineering Leadership', category: 'Leadership' },
-  { name: 'Team Building', category: 'Leadership' },
-  { name: 'Strategic Planning', category: 'Leadership' },
-  { name: 'Mentoring', category: 'Leadership' },
-  { name: 'Project Management', category: 'Leadership' },
-  { name: 'Process Improvement', category: 'Leadership' },
-
-  // Technical Skills
-  { name: 'System Architecture', category: 'Technical' },
-  { name: 'Cloud Computing', category: 'Technical' },
-  { name: 'DevOps', category: 'Technical' },
-  { name: 'Security', category: 'Technical' },
-  { name: 'API Design', category: 'Technical' },
-  { name: 'Microservices', category: 'Technical' },
-
-  // Programming
-  { name: 'Python', category: 'Programming' },
-  { name: 'JavaScript/TypeScript', category: 'Programming' },
-  { name: 'Go', category: 'Programming' },
-  { name: 'Ruby', category: 'Programming' },
-  { name: 'Java', category: 'Programming' },
-  { name: 'SQL', category: 'Programming' },
-
-  // Infrastructure
-  { name: 'AWS', category: 'Infrastructure' },
-  { name: 'Kubernetes', category: 'Infrastructure' },
-  { name: 'Docker', category: 'Infrastructure' },
-  { name: 'Terraform', category: 'Infrastructure' },
-  { name: 'CI/CD', category: 'Infrastructure' },
-  { name: 'Monitoring', category: 'Infrastructure' },
-
-  // Business
-  { name: 'Product Strategy', category: 'Business' },
-  { name: 'Stakeholder Management', category: 'Business' },
-  { name: 'Budget Management', category: 'Business' },
-  { name: 'Cross-functional Collaboration', category: 'Business' },
-  { name: 'Technical Writing', category: 'Business' },
-  { name: 'Presentations', category: 'Business' }
-]
-
-const categories = computed(() => [...new Set(skills.map(skill => skill.category))])
-const expandedCategories = ref(Object.fromEntries(categories.value.map(category => [category, false])))
-
-const getSkillsByCategory = (category: string) => {
-  return skills.filter(skill => skill.category === category)
-}
+defineProps<{ categories: SkillCategory[] }>()
+const expandedCategories = ref<Record<string, boolean>>({})
 
 const toggleCategory = (category: string) => {
   expandedCategories.value[category] = !expandedCategories.value[category]
-}
-
-const getPreviewText = (category: string) => {
-  const categorySkills = getSkillsByCategory(category)
-  return categorySkills.map(skill => skill.name).join(', ')
 }
 
 const startTransition = (element: Element, done?: () => void) => {
@@ -128,12 +75,22 @@ const endTransition = (element: Element) => {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
 }
 
 .skill-category {
+  min-width: 0;
   .category-header {
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    gap: 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -142,7 +99,7 @@ const endTransition = (element: Element) => {
     margin-bottom: 0;
 
     &:hover {
-      h3 {
+      span {
         color: var(--primary-color);
       }
       .toggle-icon {
@@ -150,13 +107,20 @@ const endTransition = (element: Element) => {
       }
     }
 
-    h3 {
+    span {
       color: var(--text-color);
       font-size: 0.95rem;
       margin: 0;
       transition: color 0.2s ease;
     }
   }
+}
+
+.category-note {
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  text-align: left;
+  margin: 0.15rem 0;
 }
 
 .toggle-icon {
@@ -240,7 +204,7 @@ const endTransition = (element: Element) => {
 
 @media (max-width: 768px) {
   .skills-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
   }
 
